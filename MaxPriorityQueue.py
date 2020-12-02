@@ -1,32 +1,33 @@
 #!/usr/bin/python3
 
+import HeapSort
+
 """
 A MaxPriorityQueue module based on CLRS3, chapter 6.5.
 Developed by Alex Saunters and Ben Eger.
 """
 
-class MaxPriorityQueue(set):
-    def __init__(self):
-        pass
 
-    def build_max_heap(self, list):
-        pass
+def insert(x):
+    """
+    Insert element x into the max priority queue
 
-    def max_heapify(self):
-        pass
+    :param x: an element to add to the max priority que
+    :return: 
+    """
+    pass
 
-    def insert(self, x):
-        # insert a new elt into the set
-        pass
 
-    def maximum(self):
-        # return the element with the largest key
-        pass
+def maximum():
+    # return the element with the largest key
+    pass
 
-    def extract_max(self):
-        # remove and return the element with the largest key
-        pass
 
-    def increase_key(self, x, k):
-        # increase the value of element x's key to the new value k
-        pass
+def extract_max():
+    # remove and return the element with the largest key
+    pass
+
+
+def increase_key(x, k):
+    # increase the value of element x's key to the new value k
+    pass

@@ -13,21 +13,35 @@ def insert(x):
     Insert element x into the max priority queue
 
     :param x: an element to add to the max priority que
-    :return: 
     """
     pass
 
 
 def maximum():
-    # return the element with the largest key
+    """
+    return the element with the largest key
+
+    :return: element with the largest key
+    """
     pass
 
 
 def extract_max():
-    # remove and return the element with the largest key
+    """
+    remove and return the element with the largest key
+
+    :return: element with the largest key
+    """
     pass
 
 
 def increase_key(x, k):
-    # increase the value of element x's key to the new value k
+    """
+    increase the value of element x's key to the new value k
+
+    :param x: an element in the max priority que
+    :param k: the new value for element x
+    :type x: element
+    :type k: int
+    """
     pass

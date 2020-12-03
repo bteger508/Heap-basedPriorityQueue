@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+import unittest
 import HeapSort
 
 """
@@ -44,4 +44,8 @@ def increase_key(x, k):
     :type x: element
     :type k: int
     """
+    pass
+
+
+class MaxPriorityQueueTest(unittest.TestCase):
     pass

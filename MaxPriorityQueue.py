@@ -17,16 +17,17 @@ def insert(x):
     return [10]
 
 
-def maximum(array):
+def maximum(heap):
     """
     return the element with the largest key
 
     :return: element with the largest key
     """
-    return array[0]
+    HeapSort.build_max_heap(heap)
+    return heap[0]
 
 
-def extract_max(A):
+def extract_max(heap):
     """
     remove and return the element with the largest key
 
@@ -41,9 +42,14 @@ def extract_max(A):
     A.heap_size -= 1
     HeapSort.max_heapify(A, 0)
     """
-    if len(A) < 1:
+    HeapSort.build_max_heap(heap)
+    if len(heap) < 1:
         return None
-    return A.pop(0)
+    max = heap.pop(0)
+    heap.heap_size -= 1
+    HeapSort.max_heapify(heap, 0)
+    return max
+
 
 def increase_key(x, k):
     """
@@ -58,29 +64,45 @@ def increase_key(x, k):
 
 
 class MaxPriorityQueueTest(unittest.TestCase):
+    heap1 = HeapSort.HeapCapable([5, 4, 3])
+    heap2 = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
+    heap3 = HeapSort.HeapCapable([-5, -10, -14, -15, -20])
+
+    myHeap = HeapSort.HeapCapable([25, 16, 14, 15, 20])
+    HeapSort.build_max_heap(myHeap)
+    print(myHeap)
+
     def test_maximum_1(self):
-        self.assertEqual(maximum([5, 4, 3]), 5)
+        self.assertEqual(5, maximum(self.heap1))
 
     def test_maximum_2(self):
-        self.assertEqual(maximum([27, 16, 25, 14, 15, 20]), 27)
+        self.assertEqual(27, maximum(self.heap2))
 
     def test_maximum_3(self):
-        self.assertEqual(maximum([-5, -10, -14, -15, -20]), -5)
+        self.assertEqual(-5, maximum(self.heap3))
 
     def test_extract_max_1(self):
-        self.assertEqual(extract_max(HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])), 27)
+        self.assertEqual(5, extract_max(HeapSort.HeapCapable([5, 4, 3])))
 
     def test_extract_max_2(self):
-        test_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
-        extract_max(test_heap)
-        self.assertEqual([16, 25, 14, 15, 20], test_heap)
+        actual_heap = HeapSort.HeapCapable([5, 4, 3])
+        extract_max(actual_heap)
+        expected_heap = HeapSort.HeapCapable([4, 3])
+        self.assertEqual(expected_heap, actual_heap)
 
     def test_extract_max_3(self):
-        test_heap = HeapSort.HeapCapable([])
-        self.assertIsNone(extract_max(test_heap))
+        actual_heap = HeapSort.HeapCapable([5, 4, 3])
+        extract_max(actual_heap)
+        self.assertEqual(2, actual_heap.heap_size)
+
+    def test_extract_max_4(self):
+        actual_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
+        extract_max(actual_heap)
+        expected_heap = HeapSort.HeapCapable([25, 20, 14, 15, 16])
+        self.assertEqual(expected_heap, actual_heap)
 
     def test_insert_1(self):
-        self.assertEqual(insert(10), [10])
+        self.assertEqual([10], insert(10))
 
 
 def main():

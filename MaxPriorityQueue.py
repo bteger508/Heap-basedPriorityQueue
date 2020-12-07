@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import math
 import unittest
 import HeapSort
 
@@ -8,13 +9,16 @@ Developed by Alex Saunters and Ben Eger.
 """
 
 
-def insert(x):
+def insert(heap, key):
     """
     Insert element x into the max priority queue
 
-    :param x: an element to add to the max priority que
+    :param heap: ...
+    :param key: ...
     """
-    return [10]
+    heap.heap_size += 1
+    heap.append(-math.inf)
+    increase_key(heap, heap.heap_size-1, key)
 
 
 def maximum(heap):
@@ -51,16 +55,22 @@ def extract_max(heap):
     return max
 
 
-def increase_key(x, k):
+def increase_key(heap, i, key):
     """
     increase the value of element x's key to the new value k
 
-    :param x: an element in the max priority que
-    :param k: the new value for element x
-    :type x: element
-    :type k: int
+    :param heap: ...
+    :param i: index of the element in the max priority que
+    :param key: the new value for element x
+    :type i: index
+    :type key: int
     """
-    pass
+    if key < heap[i]:
+        return "new key is smaller than current key"
+    heap[i] = key
+    while i > 0 and heap[HeapSort.parent(i)] < heap[i]:
+        heap[i], heap[HeapSort.parent(i)] = heap[HeapSort.parent(i)], heap[i]
+        i = HeapSort.parent(i)
 
 
 class MaxPriorityQueueTest(unittest.TestCase):
@@ -68,7 +78,7 @@ class MaxPriorityQueueTest(unittest.TestCase):
     heap2 = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
     heap3 = HeapSort.HeapCapable([-5, -10, -14, -15, -20])
 
-    myHeap = HeapSort.HeapCapable([25, 16, 14, 15, 20])
+    myHeap = HeapSort.HeapCapable([9001, 27, 16, 25, 14, 15, 20])
     HeapSort.build_max_heap(myHeap)
     print(myHeap)
 
@@ -101,8 +111,23 @@ class MaxPriorityQueueTest(unittest.TestCase):
         expected_heap = HeapSort.HeapCapable([25, 20, 14, 15, 16])
         self.assertEqual(expected_heap, actual_heap)
 
+    def test_increase_key_1(self):
+        actual_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
+        increase_key(actual_heap, 3, 35)
+        expected_heap = HeapSort.HeapCapable([35, 27, 25, 16, 15, 20])
+        self.assertEqual(expected_heap, actual_heap)
+
+    def test_increase_key_2(self):
+        actual_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
+        increase_key(actual_heap, 0, 9001)
+        expected_heap = HeapSort.HeapCapable([9001, 16, 25, 14, 15, 20])
+        self.assertEqual(expected_heap, actual_heap)
+
     def test_insert_1(self):
-        self.assertEqual([10], insert(10))
+        actual_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
+        insert(actual_heap, 90001)
+        expected_heap = HeapSort.HeapCapable([9001, 27, 20, 25, 14, 15, 16])    # This expected heap is likely incorrect
+        self.assertEqual(expected_heap, actual_heap)
 
 
 def main():

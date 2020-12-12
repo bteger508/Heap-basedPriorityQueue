@@ -15,7 +15,6 @@ def insert(heap, key):
 
             .. note:: This function modifies the heap in place and will not return anything.
 
-
     :param heap: the heap to be modified
     :param key: the key to be inserted into the max priority queue
     :type heap: heapsort_skeleton.HeapCapable

@@ -13,9 +13,12 @@ def insert(heap, key):
     """
     Insert key into the max priority queue.
 
+            .. note:: This function modifies the heap in place and will not return anything.
+
+
     :param heap: the heap to be modified
-    :type heap: heapsort_skeleton.HeapCapable
     :param key: the key to be inserted into the max priority queue
+    :type heap: heapsort_skeleton.HeapCapable
     :type key: int
     """
 
@@ -30,6 +33,7 @@ def maximum(heap):
 
     :param heap: the heap to be accessed
     :type heap: heapsort_skeleton.HeapCapable
+    :return: the element with the largest key
     :rtype: int
     """
 
@@ -43,6 +47,7 @@ def extract_max(heap):
 
     :param heap: the heap to be modified
     :type heap: heapsort_skeleton.HeapCapable
+    :return: the element with the largest key
     :rtype: int
     """
 
@@ -59,7 +64,7 @@ def increase_key(heap, i, key):
     """
     Increase the value of element x's key to the new value k.
 
-        .. note:: The procedure modifies the heap in place, and will only return an error message if the new key is smaller than the existing key.
+        .. note:: This function modifies the heap in place, and will only return an error message if the new key is smaller than the existing key.
 
     :param heap: the heap to be modified
     :param i: index of the element in the max priority que
@@ -67,6 +72,8 @@ def increase_key(heap, i, key):
     :type heap: heapsort_skeleton.HeapCapable
     :type i: index
     :type key: int
+    :return: an error message that returns only if the new key is smaller than the existing key
+    :rtype: string
     """
 
     if key < heap[i]:

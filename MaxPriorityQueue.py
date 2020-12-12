@@ -11,11 +11,14 @@ Developed by Alex Saunters and Ben Eger.
 
 def insert(heap, key):
     """
-    Insert element x into the max priority queue
+    Insert key into the max priority queue.
 
-    :param heap: ...
-    :param key: ...
+    :param heap: the heap to be modified
+    :type heap: heapsort_skeleton.HeapCapable
+    :param key: the key to be inserted into the max priority queue
+    :type key: int
     """
+
     heap.heap_size += 1
     heap.append(-math.inf)
     increase_key(heap, heap.heap_size-1, key)
@@ -23,29 +26,26 @@ def insert(heap, key):
 
 def maximum(heap):
     """
-    return the element with the largest key
+    Return the element with the largest key.
 
-    :return: element with the largest key
+    :param heap: the heap to be accessed
+    :type heap: heapsort_skeleton.HeapCapable
+    :rtype: int
     """
+
     HeapSort.build_max_heap(heap)
     return heap[0]
 
 
 def extract_max(heap):
     """
-    remove and return the element with the largest key
+    Remove and return the element with the largest key.
 
-    :return: element with the largest key
+    :param heap: the heap to be modified
+    :type heap: heapsort_skeleton.HeapCapable
+    :rtype: int
     """
 
-    """
-        if len(A) < 1:
-        raise Exception("heap underflow")
-    max = A[0]
-    A[0] = A[A.heap_size - 1]
-    A.heap_size -= 1
-    HeapSort.max_heapify(A, 0)
-    """
     HeapSort.build_max_heap(heap)
     if len(heap) < 1:
         return None
@@ -57,16 +57,20 @@ def extract_max(heap):
 
 def increase_key(heap, i, key):
     """
-    increase the value of element x's key to the new value k
+    Increase the value of element x's key to the new value k.
 
-    :param heap: ...
+        .. note:: The procedure modifies the heap in place, and will only return an error message if the new key is smaller than the existing key.
+
+    :param heap: the heap to be modified
     :param i: index of the element in the max priority que
     :param key: the new value for element x
+    :type heap: heapsort_skeleton.HeapCapable
     :type i: index
     :type key: int
     """
+
     if key < heap[i]:
-        return "new key is smaller than current key"
+        return "new key is smaller than existing key"
     heap[i] = key
     while i > 0 and heap[HeapSort.parent(i)] < heap[i]:
         heap[i], heap[HeapSort.parent(i)] = heap[HeapSort.parent(i)], heap[i]
@@ -123,10 +127,27 @@ class MaxPriorityQueueTest(unittest.TestCase):
         expected_heap = HeapSort.HeapCapable([9001, 16, 25, 14, 15, 20])
         self.assertEqual(expected_heap, actual_heap)
 
+    def test_increase_key_3(self):
+        actual_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
+        error = increase_key(actual_heap, 0, 24)
+        self.assertEqual("new key is smaller than existing key", error)
+
     def test_insert_1(self):
         actual_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
-        insert(actual_heap, 90001)
-        expected_heap = HeapSort.HeapCapable([9001, 27, 20, 25, 14, 15, 16])    # This expected heap is likely incorrect
+        insert(actual_heap, 9001)
+        expected_heap = HeapSort.HeapCapable([9001, 16, 27, 14, 15, 20, 25])
+        self.assertEqual(expected_heap, actual_heap)
+
+    def test_insert_2(self):
+        actual_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
+        insert(actual_heap, 1)
+        expected_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20, 1])
+        self.assertEqual(expected_heap, actual_heap)
+
+    def test_insert_3(self):
+        actual_heap = HeapSort.HeapCapable([27, 16, 25, 14, 15, 20])
+        insert(actual_heap, 26)
+        expected_heap = HeapSort.HeapCapable([27, 16, 26, 14, 15, 20, 25])
         self.assertEqual(expected_heap, actual_heap)
 
 
